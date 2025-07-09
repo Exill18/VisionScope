@@ -1,0 +1,28 @@
+# chess_dataset.yaml
+# This file configures the dataset for YOLOv8 training.
+
+# Path to the root directory of your generated dataset.
+path: ./data_generated
+
+# Directories for training and validation images.
+# For now, we'll use the same set for both. For a more robust model,
+# you would split a portion of your data into a separate 'val' folder.
+train: images
+val: images
+
+# The names of your classes. The order MUST match the class IDs
+# defined in your generate_dataset.py script.
+# 0-5 are white pieces, 6-11 are black pieces.
+names:
+  0: white-pawn
+  1: white-knight
+  2: white-bishop
+  3: white-rook
+  4: white-queen
+  5: white-king
+  6: black-pawn
+  7: black-knight
+  8: black-bishop
+  9: black-rook
+  10: black-queen
+  11: black-king

@@ -1,0 +1,12 @@
+# This file contains the required Python packages for the VisionScope project.
+# You can install all of them at once by running:
+# pip install -r requirements.txt
+
+ultralytics
+opencv-python
+numpy
+torch
+ipython
+Pillow
+gradio
+wandb

@@ -1,0 +1,206 @@
+# VisionScope Project Documentation: File-by-File Explanation
+
+This documentation provides a comprehensive overview of the VisionScope project’s structure. Each file and directory is described in terms of its purpose, contents, and role within the overall system.
+
+---
+
+## Core Project Files (`VisionScope/`)
+
+### `chess_dataset.yaml`
+
+* **Purpose:** Defines dataset configuration for chess piece detection with YOLOv5.
+* **Contents:**
+
+  * `train`: Path to training images
+  * `val`: Path to validation images
+  * `nc`: Number of classes (e.g., 12 for each piece-color combo)
+  * `names`: Ordered list of class names
+* **Role:** Critical for guiding YOLOv5 during training by specifying where data is and what to detect.
+
+### `config.yaml`
+
+* **Purpose:** Stores general project-wide settings.
+* **Contents:**
+
+  * Model paths
+  * Image/video processing defaults
+  * Optional hyperparameters
+* **Role:** Centralized config file enabling easy adjustments without modifying code.
+
+### `cuda.py`
+
+* **Purpose:** Utility functions for managing CUDA GPU availability.
+* **Functionality:**
+
+  * Detects available CUDA-enabled devices
+  * Displays GPU info
+  * May handle device selection or memory management
+* **Role:** Ensures optimal hardware utilization for heavy computations.
+
+### `drawer.py`
+
+* **Purpose:** Provides utilities to draw bounding boxes and labels on images.
+* **Functionality:**
+
+  * Receives image and detection results
+  * Draws boxes with class names and confidence scores
+  * Supports customization (colors, fonts, thickness)
+* **Role:** Visual output module to illustrate model predictions.
+
+### `inference.py`
+
+* **Purpose:** Performs object detection using trained YOLOv5 model.
+* **Functionality:**
+
+  * Loads a YOLOv5 model
+  * Processes images or videos
+  * Executes inference and non-max suppression (NMS)
+  * Uses `drawer.py` to visualize predictions
+  * Saves or displays results
+* **Role:** Main interface for applying the model to new inputs.
+
+### `labeled_images.json`
+
+* **Purpose:** Metadata index for labeled images.
+* **Contents:**
+
+  * Paths to labeled images
+  * Dimensions
+  * Lists of annotations (class ID, bounding box info)
+* **Role:** A manifest file aiding in dataset management and loading.
+
+### `requirements.txt`
+
+* **Purpose:** Lists project dependencies.
+* **Contents:** Key packages like:
+
+  * `torch`, `ultralytics`, `opencv-python`, `numpy`, `PyYAML`
+* **Role:** Ensures reproducibility across environments.
+
+### `script.py`
+
+* **Purpose:** Multipurpose utility script.
+* **Possible Uses:**
+
+  * Dataset preprocessing
+  * Dataset splitting
+  * Model training (basic)
+* **Role:** Helpful for ad-hoc tasks and prototyping.
+
+### `wandbAttempeted.py`
+
+* **Purpose:** Model training with Weights & Biases (W\&B) integration.
+* **Functionality:**
+
+  * Initializes W\&B logging
+  * Trains YOLOv5 model
+  * Logs metrics, predictions, and checkpoints
+* **Role:** Essential for experiment tracking, metric visualization, and reproducibility.
+
+---
+
+## Data Directories (`VisionScope/data/`, `VisionScope/data_generated/`)
+
+### `data_generated/labels/hikaru_gameX_moveY.txt`
+
+* **Purpose:** YOLO labels for chess video frames.
+* **Contents:**
+
+  * Each line: `class_id center_x center_y width height` (normalized)
+* **Role:** Ground truth labels used for training object detection models on chess footage.
+
+### `data/labels/train/` and `data/labels/val/`
+
+* **Purpose:** YOLO labels for other detection domains (e.g., UI elements).
+* **Contents:** Similar to `data_generated` labels, with class ID and normalized bounding box data.
+* **Role:** Indicates that VisionScope is applicable beyond chess, supporting broader use cases.
+
+---
+
+## Training Run Outputs (`VisionScope/runs/`)
+
+### `runs/detect/train/args.yaml`
+
+* **Purpose:** Stores training arguments for YOLOv5 runs.
+* **Contents:**
+
+  * Image size, batch size, epochs, data path, weights, project name, etc.
+* **Role:** Ensures reproducibility and helps in debugging past training sessions.
+
+### `runs/detect/train/results.csv`
+
+* **Purpose:** Records metrics during training.
+* **Contents:**
+
+  * Epoch-wise: loss values, precision, recall, mAP\@0.5, mAP\@0.5:0.95
+* **Role:** Useful for performance tracking and visualizing training progress.
+
+---
+
+## Hugging Face Demo (`VisionScope/HugginFaceco/VisionScope-Demo/`)
+
+### `app.py`
+
+* **Purpose:** Main script for running the online demo on Hugging Face Spaces.
+* **Functionality:**
+
+  * Uses Gradio/Streamlit to build an interface
+  * Accepts images/webcam input
+  * Runs inference and visualizes results
+* **Role:** User-friendly demo portal requiring no setup.
+
+### `README.md`
+
+* **Purpose:** Hugging Face Space-specific documentation.
+* **Contents:**
+
+  * Description of the demo
+  * How to use it
+  * Link to main repo
+* **Role:** Guides first-time users of the online demo.
+
+### `requirements.txt`
+
+* **Purpose:** Dependencies specific to the Hugging Face demo.
+* **Contents:** Likely includes:
+
+  * `gradio`, `ultralytics`, `opencv-python`, `torch`
+* **Role:** Keeps demo environment isolated and functional.
+
+---
+
+## ChessVision Module (`VisionScope/ChessVision/`)
+
+### `main.py`
+
+* **Purpose:** Main entry point for chess-specific detection pipeline.
+* **Functionality:**
+
+  * Captures chess board frames
+  * Detects pieces and positions
+  * Possibly translates to FEN notation or interacts with a chess engine
+* **Role:** Implements the real-time chess understanding logic.
+
+### `requirements.txt`
+
+* **Purpose:** Dependencies specific to `ChessVision`.
+* **Contents:** Includes detection libraries + `python-chess`
+* **Role:** Keeps the ChessVision submodule portable and installable.
+
+### `NotUsing/getPieces.py`
+
+* **Purpose:** Deprecated or experimental script for piece extraction.
+* **Functionality:** Likely includes an earlier method for identifying pieces without YOLO.
+* **Role:** Archive of alternative or retired logic.
+
+---
+
+## 🔗 Live Demo
+
+Try VisionScope live in your browser:
+
+[![Hugging Face Demo](https://img.shields.io/badge/🤗%20Hugging%20Face-VisionScope%20Demo-blue?logo=HuggingFace)](https://huggingface.co/spaces/Exill18/VisionScope-Demo)
+
+---
+
+
