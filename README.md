@@ -20,7 +20,7 @@
 
 ## Introduction
 
-**VisionScope** is a robust computer vision project focused on advanced object detection, with an emphasis on chessboard analysis and piece recognition. Utilizing the state-of-the-art YOLOv5 model, VisionScope provides tools for dataset management, model training, real-time inference, and result visualization. Although designed for chess, the framework is flexible and can be extended to support general object detection tasks.
+**VisionScope** is a computer vision project focused on advanced object detection, with an emphasis on chessboard analysis and piece recognition. Utilizing the YOLOv8 model, VisionScope provides tools for dataset management, model training, inference, and result visualization. Although designed for chess, the framework is flexible and can be extended to support general object detection tasks.
 
 The project includes a dedicated `ChessVision` submodule tailored for in-depth chess analysis and a Hugging Face demo for quick deployment and demonstration.
 
@@ -29,49 +29,43 @@ The project includes a dedicated `ChessVision` submodule tailored for in-depth c
 
 ## Features
 
-* **YOLOv5 Integration**: Leverages the efficiency and accuracy of YOLOv5 for object detection.
-* **Chess Piece Recognition**: Custom-trained models for identifying individual chess pieces on standard boards.
+* **YOLOv8 Integration**: YOLOv8 for object detection.
+* **Chess Piece Recognition**: Custom-trained model for identifying individual chess pieces on standard boards.
 * **Flexible Dataset Management**: Supports YOLO format with utilities for generating and organizing label files.
-* **Real-time Inference**: Detects objects in both images and video streams.
-* **Custom Drawing Utilities**: Provides easy-to-use functions for visualizing detection outputs.
-* **Training Scripts**: Includes scripts for training YOLOv5 models, with optional Weights & Biases (W\&B) integration.
-* **Hugging Face Demo**: A plug-and-play Gradio/Streamlit app for showcasing capabilities via a web UI.
-* **CUDA Support**: GPU acceleration for faster training and inference.
+* **Custom Drawing Utilities**: Provides easy-to-use functions for manual visualizing detection outputs.
+* **Training Scripts**: Includes scripts for training YOLOv8 models, with optional Weights & Biases (W\&B) integration.
+* **Hugging Face Demo**: A plug-and-play Gradio app for showcasing capabilities via a web UI.
 
 ## Project Structure
 
 ```
 VisionScope/
-├── ChessVision/                      # Specialized module for chess vision tasks
-│   ├── NotUsing/                     # Deprecated or experimental scripts
+├── ChessVision/                      
+│   ├── NotUsing/                     
 │   │   └── getPieces.py
-│   ├── data_generated/labels/        # Generated label files for chess games
+│   ├── data_generated/labels/        
 │   │   └── hikaru_gameX_moveY.txt
-│   ├── main.py                       # Main script for chess vision tasks
-│   └── requirements.txt              # Dependencies for ChessVision
+│   ├── main.py                       # script to get the chess games, images and labels
+│   └── requirements.txt              
 ├── HugginFaceco/VisionScope-Demo/    # Hugging Face Space demo
-│   ├── app.py                        # Gradio/Streamlit app
-│   ├── README.md                     # Demo-specific documentation
-│   └── requirements.txt              # Demo dependencies
-├── data/                             # General-purpose dataset folder
-│   └── labels/
-│       ├── train/                    # Training labels (e.g., UI elements)
-│       └── val/                      # Validation labels
-├── data_generated/labels/            # Auto-labeled chess game frames
+│   ├── app.py                        
+│   ├── README.md                     
+│   └── requirements.txt              
+├── data_generated/labels/            
 │   └── hikaru_gameX_moveY.txt
 ├── runs/                             # Output from training runs
 │   └── detect/train/
 │       ├── args.yaml
 │       └── results.csv
-├── chess_dataset.yaml                # Dataset config for YOLOv5
-├── config.yaml                       # General project configuration
+├── chess_dataset.yaml                # Chess Dataset config for YOLOv8
+├── config.yaml                       
 ├── cuda.py                           # GPU detection utilities
-├── drawer.py                         # Drawing utilities for bounding boxes
+├── drawer.py                         # Manual Labeler app for bounding boxes
 ├── inference.py                      # Inference script
-├── labeled_images.json               # Metadata for labeled images
+├── labeled_images.json               
 ├── requirements.txt                  # Main dependencies
 ├── script.py                         # Main training script
-└── wandbAttempeted.py                # Training with Weights & Biases
+└── wandbAttempeted.py                
 ```
 
 ## Installation
@@ -102,7 +96,7 @@ pip install -r HugginFaceco/VisionScope-Demo/requirements.txt  # For demo
 
 ### Training a Model
 
-1. **Prepare your dataset** following the YOLO format, and update `chess_dataset.yaml` accordingly.
+1. **Prepare your dataset** following the YOLO format, and update `config.yaml` accordingly.
 2. **Edit training parameters** in `config.yaml`, `script.py`, or `wandbAttempeted.py` (e.g., epochs, batch size).
 3. **Start training:**
 
